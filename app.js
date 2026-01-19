@@ -58,6 +58,7 @@ function render() {
 
     container.appendChild(card);
   });
+updateProgress();
 
   saveDB();
 }
@@ -111,3 +112,25 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 render();
+function updateProgress() {
+  let total = 0;
+  let done = 0;
+
+  sectionsConfig.forEach(section => {
+    db[todayKey].sections[section.id].forEach(task => {
+      total++;
+      if (task.done) done++;
+    });
+  });
+
+  const percent = total === 0 ? 0 : Math.round((done / total) * 100);
+
+  const text = document.getElementById('progressText');
+  const fill = document.getElementById('progressFill');
+
+  if (text && fill) {
+    text.innerText = `Today: ${percent}% completed`;
+    fill.style.width = percent + '%';
+  }
+}
+
