@@ -1,30 +1,121 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>History</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day History</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:#fff;
+}
+
+.header{
+  padding:20px;
+  text-align:center;
+}
+.header h1{
+  margin:0;
+  font-size:22px;
+}
+.header small{
+  opacity:.7;
+}
+
+.container{
+  max-width:480px;
+  margin:auto;
+  padding:16px;
+}
+
+.card{
+  background:rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:16px;
+}
+
+.card h3{
+  margin:0 0 10px;
+  font-size:16px;
+}
+
+.task{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:6px;
+  font-size:14px;
+}
+
+.task.done{
+  opacity:.6;
+  text-decoration:line-through;
+}
+
+.notes textarea{
+  width:100%;
+  min-height:120px;
+  border-radius:14px;
+  border:none;
+  padding:12px;
+  font-size:14px;
+  outline:none;
+}
+
+.back{
+  display:block;
+  text-align:center;
+  margin-top:20px;
+  opacity:.8;
+  text-decoration:none;
+  color:#fff;
+}
+</style>
 </head>
+
 <body>
-<h2 id="date"></h2>
-<div id="content"></div>
-<textarea id="notes" placeholder="Notes..."></textarea>
+
+<div class="header">
+  <h1 id="dateText"></h1>
+  <small>Your daily reflection</small>
+</div>
+
+<div class="container" id="content"></div>
+
+<a class="back" href="index.html">⬅ Back to Today</a>
 
 <script>
-const d=new URLSearchParams(location.search).get('date');
-date.innerText=d;
-const db=JSON.parse(localStorage.getItem('lifeCalendar'))||{};
-if(db[d]){
-  Object.keys(db[d].sections).forEach(s=>{
-    const div=document.createElement('div');
-    div.innerHTML=`<h3>${s}</h3>`;
-    db[d].sections[s].forEach(t=>{
-      div.innerHTML+=`${t.done?'✔️':'❌'} ${t.title}<br>`;
+const params=new URLSearchParams(location.search);
+const date=params.get("date");
+document.getElementById("dateText").innerText=date;
+
+const db=JSON.parse(localStorage.getItem("lifeCalendar"))||{};
+const container=document.getElementById("content");
+
+if(db[date]){
+  Object.keys(db[date].sections).forEach(sec=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`<h3>${sec.toUpperCase()}</h3>`;
+
+    db[date].sections[sec].forEach(t=>{
+      const div=document.createElement("div");
+      div.className="task"+(t.done?" done":"");
+      div.innerHTML=`${t.done?"✔️":"❌"} ${t.title}`;
+      card.appendChild(div);
     });
-    content.appendChild(div);
+
+    container.appendChild(card);
   });
-  notes.value=db[d].notes||'';
-  notes.oninput=()=>{db[d].notes=notes.value;localStorage.setItem('lifeCalendar',JSON.stringify(db));}
-}
-</script>
-</body>
-</html>
+
+  const notesCard=document.createElement("div");
+  notesCard.className="card notes";
+  notesCard.innerHTML=`
+    <h3>📝 Notes</h3>
+
