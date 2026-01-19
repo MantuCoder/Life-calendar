@@ -184,6 +184,27 @@
     </div>
 
     <div class="footer">Discipline today. Freedom tomorrow.</div>
+    <hr style="margin:40px 0; opacity:0.3">
+
+<h2 style="margin-bottom:10px;">📝 My Custom Plan</h2>
+
+<div style="display:flex; gap:10px; margin-bottom:15px;">
+  <input 
+    id="newTaskInput"
+    type="text"
+    placeholder="Add new task / plan..."
+    style="flex:1; padding:10px; border-radius:8px; border:none;"
+  >
+  <button 
+    onclick="addTask()"
+    style="padding:10px 16px; border-radius:8px; border:none; background:#00c853; color:#fff;"
+  >
+    Add
+  </button>
+</div>
+
+<ul id="customTasks" style="list-style:none; padding:0;"></ul>
+
   </div>
 
   <script>
@@ -271,4 +292,5 @@
   </script>
 </body>
 </html>
+
 
