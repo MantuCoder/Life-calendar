@@ -9,7 +9,7 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f2027">
 
-  <!-- Fonts -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
@@ -18,21 +18,24 @@
 
   <header class="top">
     <h1>Tracker</h1>
+
     <div class="top-bar">
       <span id="todayDate"></span>
       <span id="liveTime"></span>
     </div>
+
     <p class="subtitle">Track your routine, build streaks, stay disciplined.</p>
   </header>
 
   <main id="sections"></main>
 
-  <!-- ADD TASK MODAL -->
+  <!-- ADD / EDIT TASK MODAL -->
   <div id="taskModal" class="modal hidden">
     <div class="modal-box">
-      <h3 id="modalTitle">Add Task</h3>
+      <h3>Add Task</h3>
 
       <input id="taskTitle" type="text" placeholder="Task name">
+
       <div class="time-row">
         <input id="startTime" type="time">
         <input id="endTime" type="time">
