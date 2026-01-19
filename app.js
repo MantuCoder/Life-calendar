@@ -133,4 +133,27 @@ function updateProgress() {
     fill.style.width = percent + '%';
   }
 }
+.calendar-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+
+.calendar-day {
+  min-width: 52px;
+  padding: 8px;
+  text-align: center;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.calendar-day.active {
+  background: #00c853;
+  color: #000;
+  font-weight: 600;
+}
 
