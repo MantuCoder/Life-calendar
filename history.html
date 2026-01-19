@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>History</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top">
+  <h2 id="historyDate"></h2>
+</div>
+
+<main id="historyContent"></main>
+
+<div class="section">
+  <h3>📝 Notes</h3>
+  <textarea id="notesBox" placeholder="What went wrong? What to improve tomorrow?"
+    style="width:100%;min-height:100px;border-radius:10px;padding:10px;"></textarea>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const dateKey = params.get('date');
+
+const db = JSON.parse(localStorage.getItem('lifeCalendar')) || {};
+document.getElementById('historyDate').innerText = dateKey;
+
+const container = document.getElementById('historyContent');
+
+if (db[dateKey]) {
+  Object.keys(db[dateKey].sections).forEach(section => {
+    const box = document.createElement('div');
+    box.className = 'section';
+    box.innerHTML = `<h3>${section}</h3>`;
+
+    db[dateKey].sections[section].forEach(task => {
+      const p = document.createElement('p');
+      p.innerText = `${task.done ? '✔️' : '❌'} ${task.title}`;
+      box.appendChild(p);
+    });
+
+    container.appendChild(box);
+  });
+
+  const notes = document.getElementById('notesBox');
+  notes.value = db[dateKey].notes || '';
+
+  notes.oninput = () => {
+    db[dateKey].notes = notes.value;
+    localStorage.setItem('lifeCalendar', JSON.stringify(db));
+  };
+}
+</script>
+
+</body>
+</html>
