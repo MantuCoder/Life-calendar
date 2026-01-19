@@ -123,6 +123,7 @@
     }
   </style>
 </head>
+  
 <body>
   <div class="container">
     <h1>Daily Discipline Tracker</h1>
@@ -204,6 +205,27 @@
 </div>
 
 <ul id="customTasks" style="list-style:none; padding:0;"></ul>
+    <hr style="margin:40px 0; opacity:0.3">
+
+<h2 style="margin-bottom:10px;">📝 My Custom Plan</h2>
+
+<div style="display:flex; gap:10px; margin-bottom:15px;">
+  <input 
+    id="newTaskInput"
+    type="text"
+    placeholder="Add new task / plan..."
+    style="flex:1; padding:10px; border-radius:8px; border:none;"
+  >
+  <button 
+    onclick="addTask()"
+    style="padding:10px 16px; border-radius:8px; border:none; background:#00c853; color:#fff;"
+  >
+    Add
+  </button>
+</div>
+
+<ul id="customTasks" style="list-style:none; padding:0;"></ul>
+
 
   </div>
 
@@ -290,7 +312,402 @@
     loadChecks();
     loadHistory();
   </script>
+  <script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('customTasks');
+  if (!list) return;
+  list.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '10px';
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+      <input type="checkbox">
+      <span style="flex:1;">${task}</span>
+      <button onclick="removeTask(${index})">❌</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const value = input.value.trim();
+  if (!value) return;
+  tasks.push(value);
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+renderTasks();
+</script>
+  <script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('customTasks');
+  if (!list) return;
+  list.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '10px';
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+      <input type="checkbox">
+      <span style="flex:1;">${task}</span>
+      <button onclick="removeTask(${index})">❌</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const value = input.value.trim();
+  if (!value) return;
+  tasks.push(value);
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+renderTasks();
+</script>
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('customTasks');
+  if (!list) return;
+  list.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '10px';
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+      <input type="checkbox">
+      <span style="flex:1;">${task}</span>
+      <button onclick="removeTask(${index})">❌</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const value = input.value.trim();
+  if (!value) return;
+  tasks.push(value);
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+renderTasks();
+</script>
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('customTasks');
+  if (!list) return;
+  list.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '10px';
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+      <input type="checkbox">
+      <span style="flex:1;">${task}</span>
+      <button onclick="removeTask(${index})">❌</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const value = input.value.trim();
+  if (!value) return;
+  tasks.push(value);
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+renderTasks();
+</script>
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('customTasks');
+  if (!list) return;
+  list.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '10px';
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+      <input type="checkbox">
+      <span style="flex:1;">${task}</span>
+      <button onclick="removeTask(${index})">❌</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const value = input.value.trim();
+  if (!value) return;
+  tasks.push(value);
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+renderTasks();
+</script>
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('customTasks');
+  if (!list) return;
+  list.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '10px';
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+      <input type="checkbox">
+      <span style="flex:1;">${task}</span>
+      <button onclick="removeTask(${index})">❌</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const value = input.value.trim();
+  if (!value) return;
+  tasks.push(value);
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+renderTasks();
+</script>
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('customTasks');
+  if (!list) return;
+  list.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '10px';
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+      <input type="checkbox">
+      <span style="flex:1;">${task}</span>
+      <button onclick="removeTask(${index})">❌</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const value = input.value.trim();
+  if (!value) return;
+  tasks.push(value);
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+renderTasks();
+</script>
+<script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('customTasks');
+  if (!list) return;
+  list.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '10px';
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+      <input type="checkbox">
+      <span style="flex:1;">${task}</span>
+      <button onclick="removeTask(${index})">❌</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const value = input.value.trim();
+  if (!value) return;
+  tasks.push(value);
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+renderTasks();
+</script>
+  <script>
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+function saveTasks() {
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('customTasks');
+  if (!list) return;
+  list.innerHTML = '';
+  tasks.forEach((task, index) => {
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '10px';
+    li.style.marginBottom = '8px';
+    li.innerHTML = `
+      <input type="checkbox">
+      <span style="flex:1;">${task}</span>
+      <button onclick="removeTask(${index})">❌</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const value = input.value.trim();
+  if (!value) return;
+  tasks.push(value);
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function removeTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+renderTasks();
+</script>
 </body>
 </html>
-
 
