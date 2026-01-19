@@ -5,9 +5,9 @@ const sectionsConfig = [
   { id: 'skill', title: '🚀 Skill Growth' }
 ];
 
+const todayKey = new Date().toISOString().split('T')[0];
 let activeSection = null;
 
-const todayKey = new Date().toISOString().split('T')[0];
 const db = JSON.parse(localStorage.getItem('lifeCalendar')) || {};
 
 if (!db[todayKey]) {
@@ -24,136 +24,93 @@ function render() {
   container.innerHTML = '';
 
   sectionsConfig.forEach(section => {
-    const card = document.createElement('div');
-    card.className = 'section';
+    const box = document.createElement('div');
+    box.className = 'section';
 
-    card.innerHTML = `
+    box.innerHTML = `
       <div class="section-header">
-        <h2>${section.title}</h2>
+        <h3>${section.title}</h3>
         <button class="add-btn" onclick="openModal('${section.id}')">+</button>
       </div>
     `;
 
-    db[todayKey].sections[section.id].forEach((task, index) => {
-      const taskDiv = document.createElement('div');
-      taskDiv.className = `task ${task.done ? 'done' : ''}`;
-
-      taskDiv.innerHTML = `
+    db[todayKey].sections[section.id].forEach((task, i) => {
+      const t = document.createElement('div');
+      t.className = `task ${task.done ? 'done' : ''}`;
+      t.innerHTML = `
         <label>
-          <input 
-            type="checkbox"
-            ${task.done ? 'checked' : ''}
-            onchange="toggleDone('${section.id}', ${index})"
-          >
-          <span>
-            ${task.title}<br>
-            <small>${task.start} – ${task.end}</small>
-          </span>
+          <input type="checkbox" ${task.done ? 'checked' : ''} onchange="toggleDone('${section.id}',${i})">
+          <span>${task.title}</span>
         </label>
-        <button onclick="deleteTask('${section.id}', ${index})">✕</button>
+        <button onclick="deleteTask('${section.id}',${i})">✕</button>
       `;
-
-      card.appendChild(taskDiv);
+      box.appendChild(t);
     });
 
-    container.appendChild(card);
+    container.appendChild(box);
   });
-updateProgress();
 
+  updateProgress();
   saveDB();
 }
 
-function openModal(sectionId) {
-  activeSection = sectionId;
+function openModal(id) {
+  activeSection = id;
   document.getElementById('taskModal').classList.remove('hidden');
 }
-
 function closeModal() {
   document.getElementById('taskModal').classList.add('hidden');
 }
-
 function saveTask() {
   const title = taskTitle.value.trim();
   if (!title) return;
-
   db[todayKey].sections[activeSection].push({
     title,
-    start: startTime.value,
-    end: endTime.value,
     done: false
   });
-
   taskTitle.value = '';
-  startTime.value = '';
-  endTime.value = '';
-
   closeModal();
   render();
 }
-
-function deleteTask(sectionId, index) {
-  db[todayKey].sections[sectionId].splice(index, 1);
+function deleteTask(sec, i) {
+  db[todayKey].sections[sec].splice(i,1);
+  render();
+}
+function toggleDone(sec, i) {
+  const t = db[todayKey].sections[sec][i];
+  t.done = !t.done;
   render();
 }
 
-function toggleDone(sectionId, index) {
-  const task = db[todayKey].sections[sectionId][index];
-  task.done = !task.done;
-  render();
-}
-
-/* Date & Time */
-function updateTime() {
-  const now = new Date();
-  todayDate.innerText = now.toDateString();
-  liveTime.innerText = now.toLocaleTimeString();
-}
-
-setInterval(updateTime, 1000);
-updateTime();
-render();
+/* PROGRESS */
 function updateProgress() {
-  let total = 0;
-  let done = 0;
-
-  sectionsConfig.forEach(section => {
-    db[todayKey].sections[section.id].forEach(task => {
+  let total = 0, done = 0;
+  sectionsConfig.forEach(s => {
+    db[todayKey].sections[s.id].forEach(t => {
       total++;
-      if (task.done) done++;
+      if (t.done) done++;
     });
   });
+  const percent = total ? Math.round((done/total)*100) : 0;
+  progressText.innerText = `Today: ${percent}%`;
+  progressFill.style.width = percent + '%';
+}
 
-  const percent = total === 0 ? 0 : Math.round((done / total) * 100);
-
-  const text = document.getElementById('progressText');
-  const fill = document.getElementById('progressFill');
-
-  if (text && fill) {
-    text.innerText = `Today: ${percent}% completed`;
-    fill.style.width = percent + '%';
+/* CALENDAR */
+function renderCalendar() {
+  const strip = document.getElementById('calendarStrip');
+  const today = new Date();
+  for (let i=-3;i<=3;i++){
+    const d=new Date(today);
+    d.setDate(today.getDate()+i);
+    const key=d.toISOString().split('T')[0];
+    const div=document.createElement('div');
+    div.className='calendar-day'+(key===todayKey?' active':'');
+    div.innerHTML=`${d.getDate()}<br><small>${d.toLocaleDateString('en',{weekday:'short'})}</small>`;
+    div.onclick=()=>location.href=`history.html?date=${key}`;
+    strip.appendChild(div);
   }
 }
-.calendar-strip {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-}
 
-.calendar-day {
-  min-width: 52px;
-  padding: 8px;
-  text-align: center;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.1);
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.calendar-day.active {
-  background: #00c853;
-  color: #000;
-  font-weight: 600;
-}
-
+renderCalendar();
+render();
