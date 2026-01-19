@@ -36,14 +36,23 @@ function render() {
 
     db[todayKey].sections[section.id].forEach((task, index) => {
       const taskDiv = document.createElement('div');
-      taskDiv.className = 'task';
+      taskDiv.className = `task ${task.done ? 'done' : ''}`;
+
       taskDiv.innerHTML = `
-        <span>
-          ${task.title}<br>
-          <small>${task.start} – ${task.end}</small>
-        </span>
+        <label>
+          <input 
+            type="checkbox"
+            ${task.done ? 'checked' : ''}
+            onchange="toggleDone('${section.id}', ${index})"
+          >
+          <span>
+            ${task.title}<br>
+            <small>${task.start} – ${task.end}</small>
+          </span>
+        </label>
         <button onclick="deleteTask('${section.id}', ${index})">✕</button>
       `;
+
       card.appendChild(taskDiv);
     });
 
@@ -69,7 +78,8 @@ function saveTask() {
   db[todayKey].sections[activeSection].push({
     title,
     start: startTime.value,
-    end: endTime.value
+    end: endTime.value,
+    done: false
   });
 
   taskTitle.value = '';
@@ -85,7 +95,13 @@ function deleteTask(sectionId, index) {
   render();
 }
 
-/* Date + Time */
+function toggleDone(sectionId, index) {
+  const task = db[todayKey].sections[sectionId][index];
+  task.done = !task.done;
+  render();
+}
+
+/* Date & Time */
 function updateTime() {
   const now = new Date();
   todayDate.innerText = now.toDateString();
