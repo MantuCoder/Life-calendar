@@ -143,4 +143,36 @@ function updateStreak(percent) {
   document.getElementById("currentStreak").innerText = streakData.current;
   document.getElementById("bestStreak").innerText = streakData.best;
 }
+function updateStreak(percent) {
+  let data = JSON.parse(localStorage.getItem("streakData")) || {
+    current: 0,
+    best: 0,
+    lastDate: null
+  };
+
+  if (percent >= 70) {
+    if (data.lastDate !== todayKey) {
+      data.current += 1;
+      data.lastDate = todayKey;
+      if (data.current > data.best) {
+        data.best = data.current;
+      }
+    }
+  } else {
+    if (data.lastDate !== todayKey) {
+      data.current = 0;
+      data.lastDate = todayKey;
+    }
+  }
+
+  localStorage.setItem("streakData", JSON.stringify(data));
+
+  const cs = document.getElementById("currentStreak");
+  const bs = document.getElementById("bestStreak");
+  if (cs && bs) {
+    cs.innerText = data.current;
+    bs.innerText = data.best;
+  }
+}
+
 
