@@ -3,61 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Life Calendar</title>
+  <title>Tracker</title>
 
-  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0f2027">
 
-  <!-- Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header class="top">
-    <div class="calendar-strip" id="calendarStrip"></div>
+<header class="top">
+  <h1>Tracker</h1>
+  <p class="subtitle">Track your routine, build streaks, stay disciplined.</p>
 
-    <h1>Tracker</h1>
-
-    <div class="top-bar">
-      <span id="todayDate"></span>
-      <span id="liveTime"></span>
+  <!-- PROGRESS -->
+  <div class="progress-box">
+    <div class="progress-text" id="progressText">Today: 0%</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
     </div>
+  </div>
+</header>
 
-    <p class="subtitle">Track your routine, build streaks, stay disciplined.</p>
-    <div class="progress-box">
-  <div class="progress-text" id="progressText">Today: 0%</div>
-  <div class="progress-bar">
-    <div class="progress-fill" id="progressFill"></div>
+<!-- CALENDAR -->
+<div class="calendar-strip" id="calendarStrip"></div>
+
+<!-- SECTIONS -->
+<main id="sections"></main>
+
+<!-- ADD TASK MODAL -->
+<div id="taskModal" class="modal hidden">
+  <div class="modal-box">
+    <h3>Add Task</h3>
+    <input id="taskTitle" placeholder="Task name" />
+    <div class="time-row">
+      <input id="startTime" type="time" />
+      <input id="endTime" type="time" />
+    </div>
+    <div class="modal-actions">
+      <button onclick="closeModal()">Cancel</button>
+      <button class="primary" onclick="saveTask()">Save</button>
+    </div>
   </div>
 </div>
 
-  </header>
-
-  <main id="sections"></main>
-
-  <!-- ADD / EDIT TASK MODAL -->
-  <div id="taskModal" class="modal hidden">
-    <div class="modal-box">
-      <h3>Add Task</h3>
-
-      <input id="taskTitle" type="text" placeholder="Task name">
-
-      <div class="time-row">
-        <input id="startTime" type="time">
-        <input id="endTime" type="time">
-      </div>
-
-      <div class="modal-actions">
-        <button onclick="closeModal()">Cancel</button>
-        <button class="primary" onclick="saveTask()">Save</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="app.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
 
