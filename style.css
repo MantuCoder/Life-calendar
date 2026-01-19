@@ -134,5 +134,11 @@ main {
 .primary {
   background: #00c853;
 }
+.streak-box {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
 
 
