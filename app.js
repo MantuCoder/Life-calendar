@@ -116,3 +116,31 @@ function renderCalendar() {
 
 renderCalendar();
 render();
+function updateStreak(percent) {
+  const streakData = JSON.parse(localStorage.getItem("streakData")) || {
+    current: 0,
+    best: 0,
+    lastDate: null
+  };
+
+  if (percent >= 70) {
+    if (streakData.lastDate !== todayKey) {
+      streakData.current += 1;
+      streakData.lastDate = todayKey;
+      if (streakData.current > streakData.best) {
+        streakData.best = streakData.current;
+      }
+    }
+  } else {
+    if (streakData.lastDate !== todayKey) {
+      streakData.current = 0;
+      streakData.lastDate = todayKey;
+    }
+  }
+
+  localStorage.setItem("streakData", JSON.stringify(streakData));
+
+  document.getElementById("currentStreak").innerText = streakData.current;
+  document.getElementById("bestStreak").innerText = streakData.best;
+}
+
