@@ -94,6 +94,8 @@ function updateProgress() {
   const percent = total ? Math.round((done/total)*100) : 0;
   progressText.innerText = `Today: ${percent}%`;
   progressFill.style.width = percent + '%';
+  updateStreak(percent);
+
 }
 
 /* CALENDAR */
