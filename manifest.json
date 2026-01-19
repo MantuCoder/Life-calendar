@@ -1,0 +1,15 @@
+{
+  "name": "Life Calendar",
+  "short_name": "LifeCal",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0f2027",
+  "theme_color": "#0f2027",
+  "icons": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
