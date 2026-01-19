@@ -174,5 +174,27 @@ function updateStreak(percent) {
     bs.innerText = data.best;
   }
 }
+if ("Notification" in window) {
+  Notification.requestPermission();
+}
+
+setInterval(() => {
+  if (Notification.permission !== "granted") return;
+
+  const now = new Date();
+  const time = now.toTimeString().slice(0,5);
+
+  sectionsConfig.forEach(sec => {
+    db[todayKey].sections[sec.id].forEach(task => {
+      if (!task.done && task.start === time) {
+        new Notification("⏰ Task Reminder", {
+          body: task.title,
+          icon: "icon-512.png"
+        });
+      }
+    });
+  });
+}, 60000);
+
 
 
